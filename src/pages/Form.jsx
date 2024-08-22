@@ -54,11 +54,12 @@ const Form = () => {
   };
 
   return (
-    <div className="mx-auto mt-6 min-h-[50vh]">
+    <div className="mx-auto mt-6 max-w-full min-h-[50vh]">
       <div className="flex gap-2 justify-center items-center sm:p-10 mobile:p-2 mobile:flex-col">
-        <div className="w-full">
+        <div className="w-full relative ">
           {" "}
           <Input
+            className="max-w-full absolute "
             value={input}
             onChange={(e) => setInput(e.target.value)}
             label="Todo App"
