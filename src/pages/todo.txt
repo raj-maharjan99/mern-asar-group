@@ -1,0 +1,57 @@
+import { faker } from "@faker-js/faker";
+import { Button, Input } from "@material-tailwind/react";
+
+import React, { useState } from "react";
+
+const Form = () => {
+  const [input, setInput] = useState("");
+  const [data, setData] = useState([]);
+  const [updateId, setUpdateId] = useState(null);
+  console.log(updateId);
+  const addTodo = () => {
+    if (input.trim() !== "") {
+      if (updateId) {
+        setData((prev) =>
+          prev.map((todo) =>
+            todo.id === updateId ? { ...todo, name: input } : todo
+          )
+        );
+        setUpdateId(null);
+      } else {
+        setData((prev) => [...prev, { id: faker.string.uuid(), name: input }]);
+      }
+      setInput("");
+    }
+  };
+
+  const deleteTodo = (id) => {
+    const restTodo = data.filter((todo) => todo.id !== id);
+    setData(restTodo);
+  };
+
+  const updateTodos = (todo) => {
+    setInput(todo.name);
+    setUpdateId(todo.id);
+  };
+
+  return (
+    <div>
+      <div>
+        <Input value={input} onChange={(e) => setInput(e.target.value)} />
+      </div>
+      <Button onClick={addTodo}>{updateId ? "Update Todo" : "Add Todo"}</Button>
+      <div>
+        {data.map((todo) => (
+          <div key={todo.id} className="flex gap-10">
+            <p>Id: {todo.id}</p>
+            <p>Name: {todo.name}</p>
+            <span onClick={() => deleteTodo(todo.id)}>X</span>
+            <span onClick={() => updateTodos(todo)}>Update</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Form;
