@@ -55,17 +55,23 @@ const Form = () => {
 
   return (
     <div className="mx-auto mt-6 min-h-[50vh]">
-      <div className="flex gap-2 sm:p-10 mobile:p-2">
-        <Input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          label="Todo App"
-          placeholder="todo here"
-        />
-        <Button
-          color={`${updateId ? "orange" : "black"}`}
-          onClick={addTodos}
-        >{`${updateId ? "Upadte" : "Add"}`}</Button>
+      <div className="flex gap-2 justify-center items-center sm:p-10 mobile:p-2 mobile:flex-col">
+        <div className="w-full">
+          {" "}
+          <Input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            label="Todo App"
+            placeholder="todo here"
+          />
+        </div>
+        <div>
+          {" "}
+          <Button
+            color={`${updateId ? "orange" : "black"}`}
+            onClick={addTodos}
+          >{`${updateId ? "Upadte" : "Add"}`}</Button>
+        </div>
       </div>
       <div className="flex flex-col justify-center space-y-2  items-center w-full">
         {todos.map((todo) => (
