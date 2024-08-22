@@ -59,7 +59,7 @@ const Form = () => {
         <div className="w-full relative ">
           {" "}
           <Input
-            className="max-w-full absolute "
+            className="max-w-full absolute text-[14px]   "
             value={input}
             onChange={(e) => setInput(e.target.value)}
             label="Todo App"
