@@ -1,7 +1,10 @@
 import { faker } from "@faker-js/faker";
-import { Button, Input } from "@material-tailwind/react";
+import { Button, Card, Input } from "@material-tailwind/react";
 import React, { useEffect } from "react";
 import { useState } from "react";
+import Cards from "../components/Card";
+import { countriesApi } from "../components/api";
+import axios from "axios";
 
 const Form = () => {
   const [input, setInput] = useState("");
@@ -52,6 +55,28 @@ const Form = () => {
     setInput(todo.name);
     setUpdateId(todo.id);
   };
+
+  const user = {
+    post: "daughter",
+    name: "Samragi Maharjan",
+    image:
+      "https://images.unsplash.com/photo-1725695788329-1a609af281f1?q=80&w=1936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  };
+
+  // api fetching
+  const [countriesData, setCountriesData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await countriesApi("https://restcountries.com/v3.1/all");
+        setCountriesData(result);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="mx-auto mt-6 max-w-full min-h-[50vh]">
@@ -107,6 +132,8 @@ const Form = () => {
           <div className="text-red-700"> {error.message} </div>
         )}
       </div>
+      <Button onClick={() => setCount(count + 1)}>Add</Button>
+      <Cards country={countriesData} user={user} />
     </div>
   );
 };

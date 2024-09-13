@@ -123,28 +123,68 @@
 
 // export default Movie;
 
-import { faker } from "@faker-js/faker";
+import React, { useEffect, useState } from "react";
+
+import axios from "axios";
 import { Button } from "@material-tailwind/react";
-import React, { useState } from "react";
+import { LuGalleryHorizontal } from "react-icons/lu";
 
 const Movie = () => {
-  const [data, setData] = useState([]);
-  console.log(data);
-  const addSome = () => {
-    const obj = {
-      userid: faker.string.uuid(),
-      username: faker.internet.userName(),
-      email: faker.internet.email(),
-      avatar: faker.image.avatar(),
+  const [page, setPage] = useState(1);
+  const [movie, setMovie] = useState();
+  console.log(movie);
+  useEffect(() => {
+    const popularMoive = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.themoviedb.org/3/movie/popular",
+          {
+            params: {
+              page: page,
+            },
+
+            headers: {
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMDIxMjYxNWMyZWYzMWI5YTRjZjQ0NWMwZWEzYTY1OSIsIm5iZiI6MTcyNjIwMDEyNy4yMjM3OCwic3ViIjoiNjVkNmI5N2ZkYjE1NGYwMTY0YTBjNzdmIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.h_nq2dTkxdoywI70LzBkr8AvAvDt_c8aD8UQEpSRE1M ",
+            },
+          }
+        );
+
+        setMovie(response.data);
+      } catch (error) {}
     };
-    setData((prev) => [...prev, obj]);
+    popularMoive();
+  }, [page]);
+
+  const decrementPage = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
   };
 
-  const deleteTodo = (id) => {
-    const newTodos = data.filter((newTodo) => newTodo.userid !== id);
-    setData(newTodos);
-  };
-  return <div className="min-h-[50vh] bg-blue-gray-600 p-2"></div>;
+  const imgUrl = "https://image.tmdb.org/t/p/w500";
+  return (
+    <div className="min-h-[50vh]  p-2">
+      <div className="flex justify-around gap-10 ">
+        <Button onClick={decrementPage}>Previous</Button> <p>{page}</p>
+        <Button onClick={() => setPage(page + 1)}>Next </Button>
+      </div>
+      <div className="grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-2 gap-10 p-5">
+        {movie?.results?.map((item) => {
+          return (
+            <div key={item.id} className="shadow-2xl rounded-md">
+              <img
+                className="rounded-xl hover:scale-150 hover:animate-spin hover:transition-all hover:delay-75"
+                src={imgUrl + item.backdrop_path}
+                alt=""
+              />
+              <h2>{item.original_title}</h2>{" "}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
 };
 
 export default Movie;
