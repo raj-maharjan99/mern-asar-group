@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { data } from "./data";
 import SimpleSlider from "./Slider";
-import { Button } from "@material-tailwind/react";
+
 function HomeGallery() {
   const nav = useNavigate();
-  const [show, setShow] = useState(true);
+
   const [active, setActive] = useState(
     "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
   );

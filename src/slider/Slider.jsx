@@ -19,7 +19,7 @@ function SimpleSlider({ image }) {
                   color="white"
                   className="mb-4 text-3xl md:text-4xl lg:text-5xl"
                 >
-                  The Beauty of Nature
+                  Samragi Maharjan
                 </Typography>
                 <Typography
                   variant="lead"
