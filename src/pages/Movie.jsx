@@ -166,7 +166,7 @@ const Movie = () => {
   return (
     <div className="min-h-[50vh]  p-2">
       <div className="flex justify-around gap-10 ">
-        <Button onClick={decrementPage}>Previous</Button> <p>{page}</p>
+        <Button onClick={decrementPage}>Previous</Button> <p>Page: {page}</p>
         <Button onClick={() => setPage(page + 1)}>Next </Button>
       </div>
       <div className="grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-2 gap-10 p-5">
